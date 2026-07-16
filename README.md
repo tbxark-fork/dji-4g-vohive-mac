@@ -18,14 +18,19 @@
 
 ## 项目依赖
 
-本仓库本身只是一份操作手册（README），实际起作用的是上游 **[iniwex5/vohive-release](https://github.com/iniwex5/vohive-release)** 的发布资产。上游仓库仍在，但其最新 release `v1.5.5` **已无可下载的二进制 asset**（`vohive_v1.5.5_linux_<arch>` 实测 HTTP 404，release 的 assets 列表为空），在线安装脚本会在「下载二进制」那步失败。为此本仓库内置了两份可离线使用的资产：
+本仓库本身只是一份操作手册（README），实际起作用的是上游 **[iniwex5/vohive-release](https://github.com/iniwex5/vohive-release)** 的发布资产。若旧教程或原 README 中提到的作者原仓库路径已经失效，以作者当前维护的 release 仓库为准：
+
+- 最新代码及发版二进制包：<https://github.com/iniwex5/vohive-release/releases>
+- `v1.5.5` 源码与发布页：<https://github.com/iniwex5/vohive-release/releases/tag/v1.5.5>
+
+为避免上游路径调整、网络不可用或发版资产变动影响复现，本仓库同时内置了两份可离线使用的资产：
 
 | 内置包 | 内容 | 适用架构 | 是否联网 |
 |---|---|---|---|
-| `vohive-release-1.5.5.zip` | 在线安装脚本，运行时按架构到上游 release 拉取二进制 | arm64 + amd64 自动检测 | ❗ 上游二进制已 404，**当前会失败**，留作上游修复后使用 |
+| `vohive-release-1.5.5.zip` | 在线安装脚本，运行时按架构到上游 release 拉取二进制 | arm64 + amd64 自动检测 | 需要访问上游 release |
 | `vohive-backup.tar.gz` | **离线恢复包**：内置 vohive 二进制（sha1 `ee16a5c0cd04505df43805fc81838f3e20b16aee`，与 backup `install.sh` 注释中记录的原版 sha1 一致）+ `install.sh` + `vohive.service` + `mcc-mnc-table.json` | **x86_64（Intel / 方案 B）** | ✅ 完全离线，**当前推荐路径** |
 
-> ⚠️ 上游二进制 404 后，**Apple Silicon（方案 A，arm64）暂无内置离线二进制**：可继续试 `vohive-release-1.5.5.zip` 在线方式（等上游修复 asset），或自行备一份 `vohive_<ver>_linux_arm64` 后参照 `vohive-backup.tar.gz` 里的 `install.sh` 离线安装。Intel Mac（方案 B）直接用 `vohive-backup.tar.gz` 即可全程离线部署。
+> ⚠️ **Apple Silicon（方案 A，arm64）暂无内置离线二进制**：优先使用上游 release 的最新发版资产，或用 `vohive-release-1.5.5.zip` 在线方式安装；如需完全离线，可自行备一份 `vohive_<ver>_linux_arm64` 后参照 `vohive-backup.tar.gz` 里的 `install.sh` 离线安装。Intel Mac（方案 B）直接用 `vohive-backup.tar.gz` 即可全程离线部署。
 
 ### [iniwex5/vohive-release](https://github.com/iniwex5/vohive-release)
 

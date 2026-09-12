@@ -1,5 +1,7 @@
 # dji-4g-vohive-mac
 
+> 文档版本：v1.0.1（2026-09-12）
+>
 > 在 Mac（Apple Silicon / Intel 通用）上，用 **UTM** 跑一个 Linux 虚拟机，把**大疆 4G 模块（1 代，本质移远 Quectel EG25-G）**的 USB 身份从大疆私有 `2ca3:4006` **永久改成移远 Quectel EC25 的 `2C7C:0125`**，并在该 Linux 里一键部署 **vohive** 短信/网络/eSIM 管理平台的全套步骤；**另附一套脚本，可把这颗模组一键切换成 Mac 的 4G 上网卡**（VoHive 保号 ↔ Mac 上网两种模式自由切换）。
 
 ## 视频教程
@@ -7,6 +9,18 @@
 [![大疆 4G 模块在 Mac 上部署 VoHive 视频教程](https://img.youtube.com/vi/PZRkoggXFco/hqdefault.jpg)](https://youtu.be/PZRkoggXFco)
 
 点击上方缩略图观看 YouTube 视频教程。
+
+## 支持作者
+
+如果这份教程帮你节省了折腾时间，可以请作者喝杯咖啡：
+
+<a href="https://www.buymeacoffee.com/wlzh" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" width="217" height="60"></a>
+
+> GitHub README 不会执行外部 `<script>`，所以这里使用可正常渲染的图片链接。若把本文档部署成独立网页，可使用以下官方按钮脚本：
+>
+> ```html
+> <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="wlzh" data-color="#FFDD00" data-emoji="☕" data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff"></script>
+> ```
 
 ## 这个仓库做什么
 
@@ -202,7 +216,7 @@ lsusb
 
 #### 方式一（推荐·离线）：内置 `vohive-backup.tar.gz`（仅 x86_64 / 方案 B）
 
-适合 Intel Mac 建的 amd64 VM，**全程不联网**，规避上游二进制 404：
+适合 Intel Mac 建的 amd64 VM，**全程不联网**，规避上游网络不可用或 release asset 变动：
 
 ```bash
 sudo apt-get update && sudo apt-get install -y wget
@@ -224,7 +238,7 @@ unzip -o vohive-release-1.5.5.zip
 cd vohive-release-1.5.5
 bash install.sh
 ```
-> ⚠️ 此方式在「下载二进制」那步依赖上游 `iniwex5/vohive-release` 的 release asset；**上游 v1.5.5 二进制已 404，当前大概率失败**，此时方案 B 请改用方式一，方案 A 需自备 arm64 二进制。
+> ⚠️ 此方式在「下载二进制」那步依赖上游 `iniwex5/vohive-release` 的 release asset；如果上游资产路径调整、网络不可用或下载失败，方案 B 请改用方式一，方案 A 需自备 arm64 二进制或改用上游最新 release。
 
 #### 部署结果（两方式一致）
 
@@ -335,7 +349,7 @@ lsusb   # → 2c7c:0125 Quectel EC25
 # → UTM 把直通重新绑到 2c7c:0125 / 物理端口
 # 部署 vohive（二选一）：
 #  · 方案 B(Intel/amd64，离线推荐)：下 vohive-backup.tar.gz → tar -xzf → sudo bash install.sh
-#  · 方案 A(Apple Silicon/arm64，在线)：下 vohive-release-1.5.5.zip → unzip → bash install.sh（上游二进制 404 时会失败）
+#  · 方案 A(Apple Silicon/arm64，在线)：下 vohive-release-1.5.5.zip → unzip → bash install.sh（依赖上游 release 可访问）
 wget -O vohive-backup.tar.gz \
   https://raw.githubusercontent.com/wlzh/dji-4g-vohive-mac/main/vohive-backup.tar.gz
 tar -xzf vohive-backup.tar.gz
@@ -444,6 +458,10 @@ eg25-to-vohive.sh
 要彻底免切换，只能**两个设备各管一摊**：VoHive 用一个模组保号，Mac 上网用另一个（手机热点 / 独立 4G 棒）。
 
 ---
+
+## 更新记录
+
+- v1.0.1（2026-09-12）：增加 Buy Me a Coffee 支持入口；说明 GitHub README 不执行外部脚本；修正上游 release asset 的过期描述。
 
 ## 致谢
 
